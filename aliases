@@ -1,0 +1,4 @@
+alias romd='cd ~/${ROMNAME}'
+alias dtd='romd;cd device/xiaomi/jason'
+alias kd='romd; cd kernel/xiaomi/jason'
+cd vnd='romd; cd vendor/xiaomi/jason'
