@@ -1,4 +1,12 @@
-alias romd='cd ~/${ROMNAME}'
+alias romd='cd ~/${ROM}'
 alias dtd='romd;cd device/xiaomi/jason'
 alias kd='romd; cd kernel/xiaomi/jason'
-cd vnd='romd; cd vendor/xiaomi/jason'
+alias vnd='romd; cd vendor/xiaomi/jason'
+alias home='cd ~/'
+alias syncrepo='repo sync -f --force-sync --no-tags --no-clone-bundle'
+
+alias javatwrp='update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64'
+alias javarom='update-java-alternatives --set /usr/lib/jvm/java-8-oracle'
+
+
+
