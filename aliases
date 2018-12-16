@@ -5,8 +5,7 @@ alias vnd='romd; cd vendor/xiaomi/jason'
 alias home='cd ~/'
 alias syncrepo='repo sync -f --force-sync --no-tags --no-clone-bundle'
 
-alias javatwrp='update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64'
-alias javarom='update-java-alternatives --set /usr/lib/jvm/java-8-oracle'
+alias javatwrp='sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64'
+alias javarom='sudo update-java-alternatives --set /usr/lib/jvm/java-8-oracle'
 
-
-
+alias buildrom='. build/envsetup.sh; lunch ${ROM}_jason-userdebug; time mka $1'
