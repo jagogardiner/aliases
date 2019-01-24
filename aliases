@@ -10,7 +10,6 @@ alias syncrepo='repo sync -f --force-sync --no-tags --no-clone-bundle'
 alias javatwrp='sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64'
 alias javarom='sudo update-java-alternatives --set /usr/lib/jvm/java-8-oracle'
 
-alias buildrom='. build/envsetup.sh; lunch ${ROM}_jason-userdebug; time mka $1'
 RED='\033[0;31m'
 NC='\033[0m'
 
@@ -23,4 +22,18 @@ echo -e "${RED}TIMESTAMP:${NC}";
 stat -c %Y $1;
 echo -e "${RED}SHA256SUM:${NC}";
 sha256sum $1 | cut -d " " -f 1;
+}
+
+function buildrom() {
+echo "ROM specified is ${ROM}";
+cd ~/${ROM};
+source build/envsetup.sh;
+if [ ${ROM} == "aicp" ]
+then
+time brunch aicp_jason-userdebug;
+elif [ ${ROM} == "aosip" ]
+then
+lunch aosip_jason-userdebug;
+time mka kronic;
+fi
 }
