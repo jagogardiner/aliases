@@ -35,5 +35,27 @@ elif [ ${ROM} == "aosip" ]
 then
 lunch aosip_jason-userdebug;
 time mka kronic;
+elif [ ${ROM} == "crdroid" ]
+then
+time brunch lineage_jason-userdebug;
+fi
+}
+
+function buildbi() {
+echo "Building bootimage for ${ROM}";
+cd ~/${ROM};
+source build/envsetup.sh;
+if [ ${ROM} == "aicp" ]
+then
+lunch aicp_jason-userdebug;
+make -j16 bootimage;
+elif [ ${ROM} == "aosip" ]
+then
+lunch aosip_jason-userdebug;
+time mka bootimage;
+elif [ ${ROM} == "crdroid" ]
+then
+lunch lineage_jason-userdebug;
+make -j16 bootimage;
 fi
 }
