@@ -1,9 +1,9 @@
 #!/bin/bash
 
 alias romd='cd ~/${ROM}'
-alias dtd='romd;cd device/xiaomi/jason'
-alias kd='romd; cd kernel/xiaomi/jason'
-alias vnd='romd; cd vendor/xiaomi/jason'
+alias dtd='cd ~/${ROM}/device/xiaomi/jason'
+alias kd='cd ~/${ROM}/kernel/xiaomi/jason'
+alias vnd='cd ~/${ROM}/vendor/xiaomi/jason'
 alias home='cd ~/'
 alias syncrepo='repo sync -f --force-sync --no-tags --no-clone-bundle'
 alias logg='git log --pretty=short'
@@ -14,17 +14,6 @@ alias javarom='sudo update-java-alternatives --set /usr/lib/jvm/java-8-oracle'
 
 RED='\033[0;31m'
 NC='\033[0m'
-
-function formatota() {
-echo -e "${RED}NAME:${NC}";
-stat -c %n $1 | sed 's/.*\///';
-echo -e "${RED}SIZE:${NC}";
-cat $1 | wc -c;
-echo -e "${RED}TIMESTAMP:${NC}";
-stat -c %Y $1;
-echo -e "${RED}SHA256SUM:${NC}";
-sha256sum $1 | cut -d " " -f 1;
-}
 
 function buildrom() {
 echo "ROM specified is ${ROM}";
@@ -40,6 +29,10 @@ time mka kronic;
 elif [ ${ROM} == "crdroid" ]
 then
 time brunch lineage_jason-userdebug;
+elif [ ${ROM} == "dotos" ]
+then
+lunch dot_jason-userdebug
+make bacon
 fi
 }
 
@@ -75,7 +68,7 @@ git remote add caf/qca-wifi-host-cmn https://source.codeaurora.org/quic/la/platf
 git remote add caf/fw-api https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/fw-api/ && git fetch caf/fw-api wlan-api.lnx.1.1.r45-rel && git merge -s ours --no-commit caf/fw-api/wlan-api.lnx.1.1.r45-rel && git read-tree --prefix=drivers/staging/fw-api -u caf/fw-api/wlan-api.lnx.1.1.r45-rel && git commit --no-edit;
 }
 
-alias pick='git cherry-pick -s';
+alias pick='git cherry-pick';
 
 function abort() {
 if [ $1 == "c" ]
@@ -91,4 +84,23 @@ elif [ $1 == "a" ]
 then
 git am --abort
 fi
+}
+
+function aosipota() {
+timestamp=$(stat -c %Y $1)
+name=$(stat -c %n $1 | sed 's/.*\///')
+id=$(sha256sum $1 | cut -d " " -f 1)
+size=$(cat $1 | wc -c)
+
+echo -e " "
+echo -e "    {";
+echo -e "      "datetime": ${timestamp},";
+echo -e "      "filename": "${name}",";
+echo -e "      "id": "${id}",";
+echo -e "      "romtype": "Pizza",";
+echo -e "      "size": ${size},";
+echo -e "      "url": "https://sourceforge.net/projects/aosip-jason/files/${name}",";
+echo -e "      "version": "9.0"";
+echo -e "    }";
+echo -e " "
 }
