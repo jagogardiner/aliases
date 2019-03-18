@@ -8,6 +8,8 @@ alias home='cd ~/'
 alias syncrepo='repo sync -f --force-sync --no-tags --no-clone-bundle'
 alias logg='git log --pretty=short'
 alias cls='clear;clear;clear'
+alias add.='git add .'
+alias cond='git cherry-pick --continue'
 
 alias javatwrp='sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64'
 alias javarom='sudo update-java-alternatives --set /usr/lib/jvm/java-8-oracle'
@@ -83,7 +85,7 @@ git merge -X subtree=drivers/staging/qcacld-3.0 caf/qcacld-3.0/wlan-cld3.driver.
 fi
 }
 
-alias pick='git cherry-pick';
+alias pick='git cherry-pick -s';
 
 function abort() {
 if [ $1 == "c" ]
@@ -118,4 +120,8 @@ echo -e "      \x22url\x22: \x22https://sourceforge.net/projects/aosip-jason/fil
 echo -e "      \x22version\x22: \x229.0\x22";
 echo -e "    }";
 echo -e "";
+}
+
+function chout() {
+git checkout $1 -- $2
 }
