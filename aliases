@@ -10,6 +10,7 @@ alias logg='git log --pretty=short'
 alias cls='clear;clear;clear'
 alias add.='git add .'
 alias cond='git cherry-pick --continue'
+alias gus='gdrive upload --share'
 
 alias javatwrp='sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64'
 alias javarom='sudo update-java-alternatives --set /usr/lib/jvm/java-8-oracle'
