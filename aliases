@@ -91,6 +91,7 @@ fi
 }
 
 alias pick='git cherry-pick -s';
+alias epick='git cherry-pick -s -e';
 
 function abort() {
 if [ $1 == "c" ]
