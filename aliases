@@ -5,7 +5,6 @@ alias dtd='cd ~/${ROM}/device/xiaomi/jason'
 alias kd='cd ~/${ROM}/kernel/xiaomi/jason'
 alias vnd='cd ~/${ROM}/vendor/xiaomi/jason'
 alias home='cd ~/'
-alias syncrepo='repo sync -f --force-sync --no-tags --no-clone-bundle'
 alias logg='git log --pretty=short'
 alias cls='clear;clear;clear'
 alias add.='git add .'
@@ -66,9 +65,14 @@ git push ssh://uvera@review.aosiprom.com:29418/AOSIP/"$1" HEAD:refs/for/pie;
 }
 
 function sdm660_add_wifi() {
-git remote add caf/qcacld-3.0 https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qcacld-3.0/ && git fetch caf/qcacld-3.0 wlan-cld3.driver.lnx.1.1.r41-rel && git merge -s ours --no-commit caf/qcacld-3.0/wlan-cld3.driver.lnx.1.1.r41-rel && git read-tree --prefix=drivers/staging/qcacld-3.0 -u caf/qcacld-3.0/wlan-cld3.driver.lnx.1.1.r41-rel && git commit --no-edit;
-git remote add caf/qca-wifi-host-cmn https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qca-wifi-host-cmn/ && git fetch caf/qca-wifi-host-cmn wlan-cmn.driver.lnx.1.0.r41-rel && git merge -s ours --no-commit caf/qca-wifi-host-cmn/wlan-cmn.driver.lnx.1.0.r41-rel && git read-tree --prefix=drivers/staging/qca-wifi-host-cmn -u caf/qca-wifi-host-cmn/wlan-cmn.driver.lnx.1.0.r41-rel && git commit --no-edit;
-git remote add caf/fw-api https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/fw-api/ && git fetch caf/fw-api wlan-api.lnx.1.1.r45-rel && git merge -s ours --no-commit caf/fw-api/wlan-api.lnx.1.1.r45-rel && git read-tree --prefix=drivers/staging/fw-api -u caf/fw-api/wlan-api.lnx.1.1.r45-rel && git commit --no-edit;
+git fetch caf/qcacld-3.0 wlan-cld3.driver.lnx.1.1.r41-rel && git merge -s ours --no-commit caf/qcacld-3.0/wlan-cld3.driver.lnx.1.1.r41-rel && git read-tree --prefix=drivers/staging/qcacld-3.0 -u caf/qcacld-3.0/wlan-cld3.driver.lnx.1.1.r41-rel && git commit --no-edit;
+git fetch caf/qca-wifi-host-cmn wlan-cmn.driver.lnx.1.0.r41-rel && git merge -s ours --no-commit caf/qca-wifi-host-cmn/wlan-cmn.driver.lnx.1.0.r41-rel && git read-tree --prefix=drivers/staging/qca-wifi-host-cmn -u caf/qca-wifi-host-cmn/wlan-cmn.driver.lnx.1.0.r41-rel && git commit --no-edit;
+git fetch caf/fw-api wlan-api.lnx.1.1.r45-rel && git merge -s ours --no-commit caf/fw-api/wlan-api.lnx.1.1.r45-rel && git read-tree --prefix=drivers/staging/fw-api -u caf/fw-api/wlan-api.lnx.1.1.r45-rel && git commit --no-edit;
+}
+function sdm660_wifi_repo_add() {
+git remote add caf/qcacld-3.0 https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qcacld-3.0/ &&
+git remote add caf/qca-wifi-host-cmn https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/qca-wifi-host-cmn/ &&
+git remote add caf/fw-api https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/fw-api/
 }
 function sdm660_update_wifi() {
 if [ $1 == "1" ]
@@ -125,4 +129,12 @@ echo -e "";
 
 function chout() {
 git checkout $1 -- $2
+}
+
+function syncrepo() {
+repo sync -f --no-tags --no-clone-bundle;
+}
+
+function fsyncrepo() {
+repo sync -f --force-sync --no-tags --no-clone-bundle;
 }
