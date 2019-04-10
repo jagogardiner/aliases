@@ -1,9 +1,9 @@
 #!/bin/bash
 
 alias romd='cd ~/${ROM}'
-alias dtd='cd ~/${ROM}/device/xiaomi/jason'
-alias kd='cd ~/${ROM}/kernel/xiaomi/jason'
-alias vnd='cd ~/${ROM}/vendor/xiaomi/jason'
+alias dtd='cd ~/${ROM}/device/xiaomi/platina'
+alias kd='cd ~/${ROM}/kernel/xiaomi/platina'
+alias vnd='cd ~/${ROM}/vendor/xiaomi/platina'
 alias home='cd ~/'
 alias logg='git log --pretty=short'
 alias cls='clear;clear;clear'
@@ -23,17 +23,17 @@ cd ~/${ROM};
 source build/envsetup.sh;
 if [ ${ROM} == "aicp" ]
 then
-time brunch aicp_jason-userdebug;
+time brunch aicp_platina-userdebug;
 elif [ ${ROM} == "aosip" ]
 then
-lunch aosip_jason-userdebug;
+lunch aosip_platina-userdebug;
 time mka kronic;
 elif [ ${ROM} == "crdroid" ]
 then
-time brunch lineage_jason-userdebug;
+time brunch lineage_platina-userdebug;
 elif [ ${ROM} == "dotos" ]
 then
-lunch dot_jason-userdebug
+lunch dot_platina-userdebug
 make bacon
 fi
 }
@@ -44,24 +44,17 @@ cd ~/${ROM};
 source build/envsetup.sh;
 if [ ${ROM} == "aicp" ]
 then
-lunch aicp_jason-userdebug;
-make -j16 bootimage;
+lunch aicp_platina-userdebug;
+make -j8 bootimage;
 elif [ ${ROM} == "aosip" ]
 then
-lunch aosip_jason-userdebug;
+lunch aosip_platina-userdebug;
 time mka bootimage;
 elif [ ${ROM} == "crdroid" ]
 then
-lunch lineage_jason-userdebug;
-make -j16 bootimage;
+lunch lineage_platina-userdebug;
+make -j8 bootimage;
 fi
-}
-
-function pushrit() {
-echo "Username: uvera";
-echo "Project: AOSIP/$1";
-echo "Branch pie";
-git push ssh://uvera@review.aosiprom.com:29418/AOSIP/"$1" HEAD:refs/for/pie;
 }
 
 function sdm660_add_wifi() {
@@ -122,7 +115,7 @@ echo -e "      \x22filename\x22: \x22${name}\x22,";
 echo -e "      \x22id\x22: \x22${id}\x22,";
 echo -e "      \x22romtype\x22: \x22Pizza\x22,";
 echo -e "      \x22size\x22: ${size},";
-echo -e "      \x22url\x22: \x22https://sourceforge.net/projects/aosip-jason/files/${name}\x22,";
+echo -e "      \x22url\x22: \x22https://sourceforge.net/projects/aosip-platina/files/${name}\x22,";
 echo -e "      \x22version\x22: \x229.0\x22";
 echo -e "    }";
 echo -e "";
