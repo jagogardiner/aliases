@@ -21,17 +21,17 @@ function buildrom() {
 echo "ROM specified is ${ROM}";
 cd ~/${ROM};
 source build/envsetup.sh;
-if [ ${ROM} == "aicp" ]
+if [ ${ROM} "==" "aicp" ]
 then
 time brunch aicp_platina-userdebug;
-elif [ ${ROM} == "aosip" ]
+elif [ ${ROM} "==" "aosip" ]
 then
 lunch aosip_platina-userdebug;
 time mka kronic;
-elif [ ${ROM} == "crdroid" ]
+elif [ ${ROM} "==" "crdroid" ]
 then
 time brunch lineage_platina-userdebug;
-elif [ ${ROM} == "dotos" ]
+elif [ ${ROM} "==" "dotos" ]
 then
 lunch dot_platina-userdebug
 make bacon
@@ -42,15 +42,15 @@ function buildbi() {
 echo "Building bootimage for ${ROM}";
 cd ~/${ROM};
 source build/envsetup.sh;
-if [ ${ROM} == "aicp" ]
+if [ ${ROM} "==" "aicp" ]
 then
 lunch aicp_platina-userdebug;
 make -j8 bootimage;
-elif [ ${ROM} == "aosip" ]
+elif [ ${ROM} "==" "aosip" ]
 then
 lunch aosip_platina-userdebug;
 time mka bootimage;
-elif [ ${ROM} == "crdroid" ]
+elif [ ${ROM} "==" "crdroid" ]
 then
 lunch lineage_platina-userdebug;
 make -j8 bootimage;
@@ -90,7 +90,7 @@ git revert --abort
 elif [ $1 "==" "m" ]
 then
 git merge --abort
-elif [ $1 == "a" ]
+elif [ $1 "==" "a" ]
 then
 git am --abort
 fi
