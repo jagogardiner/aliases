@@ -1,61 +1,10 @@
 #!/bin/bash
 
-alias romd='cd ~/${ROM}'
-alias dtd='cd ~/${ROM}/device/xiaomi/platina'
-alias kd='cd ~/${ROM}/kernel/xiaomi/platina'
-alias vnd='cd ~/${ROM}/vendor/xiaomi/platina'
 alias home='cd ~/'
 alias logg='git log --pretty=short'
 alias cls='clear'
 alias add.='git add .'
 alias cond='git cherry-pick --continue'
-alias gus='gdrive upload --share'
-
-alias javatwrp='sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64'
-alias javarom='sudo update-java-alternatives --set /usr/lib/jvm/java-8-oracle'
-
-RED='\033[0;31m'
-NC='\033[0m'
-
-function buildrom() {
-echo "ROM specified is ${ROM}";
-cd ~/${ROM};
-source build/envsetup.sh;
-if [ ${ROM} "==" "aicp" ]
-then
-time brunch aicp_platina-userdebug;
-elif [ ${ROM} "==" "aosip" ]
-then
-lunch aosip_platina-userdebug;
-time mka kronic;
-elif [ ${ROM} "==" "crdroid" ]
-then
-time brunch lineage_platina-userdebug;
-elif [ ${ROM} "==" "dotos" ]
-then
-lunch dot_platina-userdebug
-make bacon
-fi
-}
-
-function buildbi() {
-echo "Building bootimage for ${ROM}";
-cd ~/${ROM};
-source build/envsetup.sh;
-if [ ${ROM} "==" "aicp" ]
-then
-lunch aicp_platina-userdebug;
-make -j8 bootimage;
-elif [ ${ROM} "==" "aosip" ]
-then
-lunch aosip_platina-userdebug;
-time mka bootimage;
-elif [ ${ROM} "==" "crdroid" ]
-then
-lunch lineage_platina-userdebug;
-make -j8 bootimage;
-fi
-}
 
 function sdm660_add_wifi() {
 git fetch caf/qcacld-3.0 $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=drivers/staging/qcacld-3.0 -u FETCH_HEAD && git commit --no-edit;
@@ -94,25 +43,6 @@ elif [ $1 "==" "a" ]
 then
 git am --abort
 fi
-}
-
-function aosipota() {
-timestamp=$(stat -c %Y $1)
-name=$(stat -c %n $1 | sed 's/.*\///')
-id=$(sha256sum $1 | cut -d " " -f 1)
-size=$(cat $1 | wc -c)
-
-echo -e "";
-echo -e "    {";
-echo -e "      \x22datetime\x22: ${timestamp},";
-echo -e "      \x22filename\x22: \x22${name}\x22,";
-echo -e "      \x22id\x22: \x22${id}\x22,";
-echo -e "      \x22romtype\x22: \x22Pizza\x22,";
-echo -e "      \x22size\x22: ${size},";
-echo -e "      \x22url\x22: \x22https://sourceforge.net/projects/aosip-platina/files/${name}\x22,";
-echo -e "      \x22version\x22: \x229.0\x22";
-echo -e "    }";
-echo -e "";
 }
 
 function chout() {
