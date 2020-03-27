@@ -25,9 +25,9 @@ git fetch caf/qcacld-3.0 $1;
 git merge -X subtree=drivers/staging/qcacld-3.0 FETCH_HEAD --no-edit;
 }
 
-alias pick='git cherry-pick -s';
-alias epick='git cherry-pick -s -e';
-alias commit='git commit -s'
+alias pick='git cherry-pick';
+alias epick='git cherry-pick -e';
+alias commit='git commit'
 
 function abort() {
 if [ $1 "==" "c" ]
