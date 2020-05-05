@@ -80,3 +80,19 @@ for i in {0..3..1}; do
 	cat /sys/devices/system/cpu/cpu$i/cpufreq/scaling_governor
 done
 }
+
+function clean_build() {
+	source build/envsetup.sh
+	export USE_CCACHE=1
+	mka clean -j$(nproc --all)
+	mka clobber -j$(nproc --all)
+	lunch aosp_$1.mk
+	mka bacon -j$(nproc --all)
+}
+
+function fast_build() {
+	source build/envsetup.sh
+	export USE_CCACHE=1
+	lunch aosp_$1.mk
+	mka bacon -j$(nproc --all)
+}
