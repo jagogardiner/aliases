@@ -25,6 +25,34 @@ git fetch caf/qcacld-3.0 $1;
 git merge -X subtree=drivers/staging/qcacld-3.0 FETCH_HEAD --no-edit;
 }
 
+function pixel_repo_add() {
+git remote add pixel/kernel https://android.googlesource.com/kernel/msm
+git remote add pixel/extra https://android.googlesource.com/kernel/msm-extra
+git remote add pixel/qcacld https://android.googlesource.com/kernel/msm-modules/qcacld
+git remote add pixel/fw-api https://android.googlesource.com/kernel/msm-modules/wlan-fw-api
+git remote add pixel/cmn https://android.googlesource.com/kernel/msm-modules/qca-wfi-host-cmn
+}
+
+function pixel_repo_merge() {
+git fetch pixel/qcacld $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=drivers/staging/qcacld-3.0 && git commit --no-edit;
+git fetch pixel/fw-api $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=drivers/staging/fw-api -u FETCH_HEAD && git commit --no-edit;
+git fetch pixel/cmn $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=drivers/staging/qca-wfi-host-cmn -u FETCH_HEAD && git commit --no-edit;
+git fetch pixel/extra $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=techpack/audio -u FETCH_HEAD && git commit --no-edit;
+}
+
+function pixel_update_kernel() {
+git fetch pixel/fw-api $1;
+git merge -X subtree=drivers/staging/fw-api FETCH_HEAD --no-edit; || exit 1;
+git fetch pixel/cmn $1;
+git merge -X subtree=drivers/staging/qca-wfi-host-cmn FETCH_HEAD --no-edit; || exit 1;
+git fetch pixel/qcacld $1;
+git merge -X subtree=drivers/staging/qcacld-3.0 FETCH_HEAD --no-edit; || exit 1;
+git fetch pixel/extra $1;
+git merge -X subtree=techpack/audio FETCH_HEAD --no-edit; || exit 1;
+git fetch pixel/kernel $1;
+git merge FETCH_HEAD --no-edit;
+}
+
 alias pick='git cherry-pick';
 alias epick='git cherry-pick -e';
 alias commit='git commit'
@@ -79,4 +107,8 @@ for i in {0..3..1}; do
 	echo "CPU $i:"
 	cat /sys/devices/system/cpu/cpu$i/cpufreq/scaling_governor
 done
+}
+
+function telegrampyxis() {
+telegram -c "-1001343169497" $@
 }
