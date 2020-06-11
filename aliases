@@ -42,13 +42,13 @@ git fetch pixel/extra $1 && git merge --allow-unrelated-histories -s ours --no-c
 
 function pixel_update_kernel() {
 git fetch pixel/fw-api $1;
-git merge -X subtree=drivers/staging/fw-api FETCH_HEAD --no-edit; || exit 1;
+git merge -X subtree=drivers/staging/fw-api FETCH_HEAD --no-edit;
 git fetch pixel/cmn $1;
-git merge -X subtree=drivers/staging/qca-wfi-host-cmn FETCH_HEAD --no-edit; || exit 1;
+git merge -X subtree=drivers/staging/qca-wfi-host-cmn FETCH_HEAD --no-edit;
 git fetch pixel/qcacld $1;
-git merge -X subtree=drivers/staging/qcacld-3.0 FETCH_HEAD --no-edit; || exit 1;
+git merge -X subtree=drivers/staging/qcacld-3.0 FETCH_HEAD --no-edit;
 git fetch pixel/extra $1;
-git merge -X subtree=techpack/audio FETCH_HEAD --no-edit; || exit 1;
+git merge -X subtree=techpack/audio FETCH_HEAD --no-edit;
 git fetch pixel/kernel $1;
 git merge FETCH_HEAD --no-edit;
 }
@@ -111,4 +111,20 @@ done
 
 function telegrampyxis() {
 telegram -c "-1001343169497" $@
+}
+
+function clean_build() {
+	source build/envsetup.sh
+	export USE_CCACHE=1
+	mka clean -j$(nproc --all)
+	mka clobber -j$(nproc --all)
+	lunch aosp_$1.mk
+	mka bacon -j$(nproc --all)
+}
+
+function fast_build() {
+	source build/envsetup.sh
+	export USE_CCACHE=1
+	lunch aosp_$1.mk
+	mka bacon -j$(nproc --all)
 }
