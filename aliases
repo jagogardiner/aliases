@@ -34,9 +34,9 @@ git remote add pixel/cmn https://android.googlesource.com/kernel/msm-modules/qca
 }
 
 function pixel_repo_merge() {
-git fetch pixel/qcacld $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=drivers/staging/qcacld-3.0 && git commit --no-edit;
+git fetch pixel/qcacld $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=drivers/staging/qcacld-3.0 -u FETCH_HEAD && git commit --no-edit;
 git fetch pixel/fw-api $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=drivers/staging/fw-api -u FETCH_HEAD && git commit --no-edit;
-git fetch pixel/cmn $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=drivers/staging/qca-wfi-host-cmn -u FETCH_HEAD && git commit --no-edit;
+git fetch pixel/cmn $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=drivers/staging/qca-wifi-host-cmn -u FETCH_HEAD && git commit --no-edit;
 git fetch pixel/extra $1 && git merge --allow-unrelated-histories -s ours --no-commit FETCH_HEAD && git read-tree --prefix=techpack/audio -u FETCH_HEAD && git commit --no-edit;
 }
 
