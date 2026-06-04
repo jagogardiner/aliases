@@ -1,0 +1,13 @@
+#!/bin/bash
+
+alias home='cd ~/'
+alias logg='git log --pretty=short'
+alias cls='clear'
+alias add.='git add .'
+alias cond='git cherry-pick --continue'
+alias pick='git cherry-pick';
+alias commit='git commit'
+
+function chout() {
+	git checkout $1 -- $2
+}
