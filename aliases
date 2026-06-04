@@ -12,3 +12,8 @@ alias zsrc='source ~/.zshrc'
 function chout() {
 	git checkout $1 -- $2
 }
+
+function search()
+{
+	grep -rni $1
+}
