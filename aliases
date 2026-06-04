@@ -7,6 +7,7 @@ alias add.='git add .'
 alias cond='git cherry-pick --continue'
 alias pick='git cherry-pick';
 alias commit='git commit'
+alias zsrc='source ~/.zshrc'
 
 function chout() {
 	git checkout $1 -- $2
